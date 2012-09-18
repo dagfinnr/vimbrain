@@ -38,20 +38,10 @@ module VimBrain
             return self end
     end
 
-    module CurrentObject
-        def perspective
-            return Window::current.perspective
-        end
-    end
-
     class Cursor
         include CursorLineMovement
         include WindowCursorMovement
         include CurrentObject
-
-        def self.perspective
-            new.perspective
-        end
 
         def self.instance
             return new
@@ -61,15 +51,13 @@ module VimBrain
             return Window::current
         end
 
-        def self.perspective
-            return Window::current.perspective
-        end
-
         def window
             return Window::current
         end
 
         def position
+            # 'cursor' in this call is the cursor property of the VIM::Window
+            # object, which is a [row, col] array
             pos = self.window.cursor
             return CursorPosition.new(*pos)
         end
