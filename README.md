@@ -3,8 +3,9 @@ vimbrain
 
 Vimbrain is a brain transplant for the Vim editor. A Ruby library and object model for Vim.
 
-I've had this lying around for a long time. Finally got around to putting it
-out. But I've only just started. There's more coming soon.
+I've had this lying around for a long time. Finally got around to making it
+available to the world. I'm adding more gradually, and I'm hoping to eventually
+push a working Vim plugin that does something useful.
 
 The tests and how to run them
 -----------------------------
