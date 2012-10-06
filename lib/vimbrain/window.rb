@@ -3,6 +3,10 @@ require 'vimbrain/vim'
 # test file: window_vimtest.rb
 #
 
+class VIM::Window
+    attr_accessor :winnr
+end
+    
 module VimBrain
     module WindowMixin
         # Forwardable was the easiest way I found to extend the Vim window
