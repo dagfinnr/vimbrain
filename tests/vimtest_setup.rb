@@ -1,4 +1,5 @@
-$LOAD_PATH << '../lib'
+$LOAD_PATH <<  File.dirname(__FILE__) + '/../lib'
+
 require 'vimbrain/vim'
 require 'test/unit'
 

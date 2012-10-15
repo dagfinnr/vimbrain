@@ -41,7 +41,6 @@ module VimBrain
     class Cursor
         include CursorLineMovement
         include WindowCursorMovement
-        include CurrentObject
 
         def self.instance
             return new
