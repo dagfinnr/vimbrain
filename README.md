@@ -7,8 +7,15 @@ I've had this lying around for a long time. Finally got around to making it
 available to the world. I'm adding more gradually, and I'm hoping to eventually
 push a working Vim plugin that does something useful.
 
-The tests and how to run them
------------------------------
+The test runner plugin
+----------------------
+
+I decided to make a plugin that runs tests from inside Vim. I'm planning to
+start by emulating most of the functionality of http://www.vim.org/scripts/script.php?script_id=2612
+
+
+The tests and how to run them from the command line
+---------------------------------------------------
 
 The tests are written in Ruby Test::Unit and use Ruby mocha for
 mock objects. In case anyone is wondering, I know there are other frameworks,
@@ -34,3 +41,5 @@ a more usual way:
 ```
 ruby foo_test.rb
 ```
+
+

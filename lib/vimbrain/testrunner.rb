@@ -4,9 +4,15 @@ require 'vimbrain/cursor'
 
 module VimBrain
     module TestRun
-        class File
-            extend Vim::Command
+        module Run
             include Vim::Command
+            def run
+                vim_command(command)
+            end
+        end
+
+        class File
+            include Run
 
             attr_accessor :file
 
@@ -17,13 +23,11 @@ module VimBrain
             def command
                 return "!ruby #{file}"
             end
-
-            def run
-                vim_command(command)
-            end
         end
 
         class SingleTest
+            include Run
+
             attr_accessor :file
             attr_accessor :window
 
@@ -46,30 +50,30 @@ module VimBrain
                 return nil if matcharray.nil?
                 return matcharray[0]
             end
-
-            def run
-                vim_command(command)
-            end
         end
     end
 
     class TestRunner
-        extend Vim::Command
-        include Vim::Command
-
         attr_accessor :vim
         attr_accessor :window
+        attr_reader :last_run
 
         def initialize
             @window = VimBrain::Window.current
         end
 
         def run_suite
-            TestRun::File.new(@window.filename).run
+            @last_run = TestRun::File.new(@window.filename)
+            run_last_test
         end
 
         def run_current_test
-            TestRun::SingleTest.new(@window).run
+            @last_run = TestRun::SingleTest.new(@window)
+            run_last_test
+        end
+
+        def run_last_test
+            @last_run.run
         end
     end
 end

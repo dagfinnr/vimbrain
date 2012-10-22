@@ -49,9 +49,15 @@ class TC_TestRunner < Test::Unit::TestCase
         ]
     end
 
-    def test_runner_can_run_command_for_whole_file
+    def test_runner_can_run_whole_file
         TestRun::File.any_instance.expects('vim_command').with('!ruby foo_test.rb')
         @runner.run_suite
+    end
+
+    def test_runner_can_run_last_test
+        TestRun::File.any_instance.expects('vim_command').twice.with('!ruby foo_test.rb')
+        @runner.run_suite
+        @runner.run_last_test
     end
 
     def test_can_identify_test_under_cursor
