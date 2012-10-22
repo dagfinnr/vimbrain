@@ -11,16 +11,11 @@ module VimTestSetup
     def reset_vim
         vim_command("execute 'silent! 1,' . bufnr('$') . 'bwipeout!'")
         # Close all tabpages except the current one
-        vim_command("tabonly!") if Tabpages.count > 1
+        vim_command("tabonly!")
 
         # Close all windows except the current one
         vim_command("only!") if VIM::Window.count > 1
         
-        # Destroy the perspective that is tied to the current VIM window
-        Cursor.window.perspective = nil
-
-        # Destroy the perspective registry singleton instance
-        PerspectiveRegistry.load(nil)
     end
 
     def go_to_sut_window

@@ -3,7 +3,7 @@ $LOAD_PATH <<  File.dirname(__FILE__) + '/../lib'
 require 'test/unit'
 require 'test/unit/ui/console/testrunner'
 require 'vimbrain/window'
-require 'tests/vimtest_setup'
+require '../tests/vimtest_setup'
 require 'ftools'
 require 'rubygems'
 require 'mocha'
@@ -31,13 +31,6 @@ class TC_Window < Test::Unit::TestCase
         assert_equal('test2',File.basename(windows[0].filename))
     end
 
-
-    def test_scratch
-        win = Window.current
-        win.set_scratch
-        assert(win.scratch?)
-    end
-
     def test_vimcommand
         win = Window.current
         # Run the test from another window:
@@ -50,7 +43,8 @@ class TC_Window < Test::Unit::TestCase
     end
 
     def test_buffer_length
-        VIM::command("edit! #{$thisdir}/testfile.txt")
+        win = Window.current
+        win.append("line 1\nline 2\nline 3")
         assert_equal 4,Window.current.buffer.length
     end
 
@@ -97,4 +91,4 @@ class TC_Window < Test::Unit::TestCase
 end
 
 
-RubyVimTest::ConsoleRunner.run(TC_Window)
+Test::Unit::UI::Console::TestRunner.run(TC_Window)

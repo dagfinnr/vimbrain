@@ -4,7 +4,7 @@ require 'test/unit'
 require 'test/unit/ui/console/testrunner'
 require 'vimbrain/cursor'
 require 'vimbrain/window'
-require 'tests/vimtest_setup'
+require '../tests/vimtest_setup'
 
 include VimBrain
 
@@ -75,5 +75,5 @@ class TC_CursorWindowMovement < Test::Unit::TestCase
     end
 end
 
-RubyVimTest::ConsoleRunner.run(TC_Cursor)
-RubyVimTest::ConsoleRunner.run(TC_CursorWindowMovement)
+Test::Unit::UI::Console::TestRunner.run(TC_Cursor)
+Test::Unit::UI::Console::TestRunner.run(TC_CursorWindowMovement)

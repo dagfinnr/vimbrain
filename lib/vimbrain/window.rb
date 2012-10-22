@@ -125,7 +125,7 @@ module VimBrain
         end
 
         def vimcommand(cmd)
-            startwin = Cursor.window
+            startwin = Window.current
             vim_command(
         "windo ruby VIM::command('#{cmd}')"+
         "if VimBrain::Cursor.window.number == #{number}")
