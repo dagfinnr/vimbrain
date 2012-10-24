@@ -31,17 +31,6 @@ class TC_Window < Test::Unit::TestCase
         assert_equal('test2',File.basename(windows[0].filename))
     end
 
-    def test_vimcommand
-        win = Window.current
-        # Run the test from another window:
-        VIM::command("aboveleft new")
-        testwin = Window.current
-        # Edit testfile.txt in the first window
-        win.vimcommand("edit! testfile.txt")
-        # Check that the file is in the buffer
-        assert_equal('testfile.txt',File.basename(win.filename))
-    end
-
     def test_buffer_length
         win = Window.current
         win.append("line 1\nline 2\nline 3")
