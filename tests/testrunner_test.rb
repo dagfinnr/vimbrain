@@ -54,8 +54,9 @@ class TC_TestRunner < Test::Unit::TestCase
         @runner.run_suite
     end
 
-    def test_runner_can_run_last_test
-        TestRun::File.any_instance.expects('vim_command').twice.with('!ruby foo_test.rb')
+    def test_runner_can_run_suite_as_last_test
+        TestRun::File.any_instance.expects('vim_command').with('!ruby foo_test.rb')
+        TestRun::Memento.any_instance.expects('vim_command').with('!ruby foo_test.rb')
         @runner.run_suite
         @runner.run_last_test
     end
@@ -77,7 +78,7 @@ class TC_TestRunner < Test::Unit::TestCase
     end
 
     def test_can_run_single_test
-        @testwindow.expects(:get_lines).returns(@lines)
+        @testwindow.expects(:get_lines).twice.returns(@lines)
         move_mock_cursor_to(5,5)
         TestRun::SingleTest.any_instance.expects('vim_command').with('!ruby foo_test.rb --name test_2')
         @runner.run_current_test

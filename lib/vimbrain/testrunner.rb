@@ -9,6 +9,12 @@ module VimBrain
             def run
                 vim_command(command)
             end
+
+            def memento
+                m = TestRun::Memento.new
+                m.command = self.command
+                m
+            end
         end
 
         class File
@@ -23,6 +29,7 @@ module VimBrain
             def command
                 return "!ruby #{file}"
             end
+
         end
 
         class SingleTest
@@ -51,6 +58,11 @@ module VimBrain
                 return matcharray[0]
             end
         end
+
+        class Memento
+            include Run
+            attr_accessor :command
+        end
     end
 
     class TestRunner
@@ -63,13 +75,15 @@ module VimBrain
         end
 
         def run_suite
-            @last_run = TestRun::File.new(@window.filename)
-            run_last_test
+            tr = TestRun::File.new(@window.filename)
+            tr.run
+            @last_run = tr.memento
         end
 
         def run_current_test
-            @last_run = TestRun::SingleTest.new(@window)
-            run_last_test
+            tr = TestRun::SingleTest.new(@window)
+            tr.run
+            @last_run = tr.memento
         end
 
         def run_last_test
